@@ -1,0 +1,28 @@
+# Node.js
+node_modules/
+
+# IDEs and text editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Logs
+*.log
+logs/
+
+# Build output directories
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Cache files
+.cache/
+
+# OS-specific files
+.DS_Store
+Thumbs.db

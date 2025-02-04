@@ -1,0 +1,22 @@
+#app {
+  max-width: 80%;
+  margin: 0 auto;
+  font-weight: normal;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(24, 103, 192);
+  padding: 1rem;
+}
+
+h2 {
+  text-align: center;
+  margin: 2rem 0 2rem 0;
+}
+
+@media (hover: hover) {
+  a:hover {
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,28 @@
+node_modules
+.env
+# Node.js
+node_modules/
+
+# IDEs and text editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Logs
+*.log
+logs/
+
+# .env file with sensitive information
+.env
+
+# Build directories
+dist/
+build/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
