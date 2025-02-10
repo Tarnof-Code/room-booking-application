@@ -1,6 +1,9 @@
 <template>
   <div>
     <h2>Liste de mes réservations</h2>
+    <div v-if="hasDeletedRooms" class="alert">
+      ⚠️ Attention certaines de vos réservations concernent des salles qui ont été supprimées.
+    </div>
     <v-data-table
       :headers="headers"
       :items="bookingStore.bookings"
@@ -9,7 +12,14 @@
       <template v-slot:item="{ item }">
         <tr>
           <td>{{ dayjs.utc(item.date).format('DD/MM/YYYY') }}</td>
-          <td>{{ item.room.name }}</td>
+          <td
+            :style="{
+              fontWeight: item.room == null ? 'bold' : 'normal',
+              color: item.room == null ? 'red' : 'inherit',
+            }"
+          >
+            {{ item.room ? item.room.name : 'Salle supprimée' }}
+          </td>
           <td>{{ dayjs.utc(item.startTime).format('HH:mm') }}</td>
           <td>{{ dayjs.utc(item.endTime).format('HH:mm') }}</td>
           <td>{{ item.numberOfPeople }}</td>
@@ -41,7 +51,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useBookingStore } from '@/stores/bookingStore'
 import { useUserStore } from '@/stores/userStore'
 
@@ -53,6 +63,10 @@ dayjs.extend(utc)
 
 const bookingStore = useBookingStore()
 const userStore = useUserStore()
+
+const hasDeletedRooms = computed(() => {
+  return bookingStore.bookings.some((booking) => !booking.room)
+})
 
 const headers = ref([
   { title: 'Date', key: 'date' },
@@ -100,3 +114,16 @@ onMounted(() => {
   bookingStore.getBookingsByUser(userStore.user.firstName, userStore.user.lastName)
 })
 </script>
+
+<style scoped>
+.alert {
+  background-color: #ffcccc;
+  color: red;
+  font-weight: bold;
+  padding: 10px;
+  border: 1px solid red;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+</style>
